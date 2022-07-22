@@ -2,6 +2,7 @@
   "name": "devbootcamp",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://FreakStar03.github.io/DevBootCamp",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
@@ -19,7 +20,9 @@
     "lint": "eslint ./",
     "lint-fix": "eslint ./ --fix",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
-    "postinstall": "husky install"
+    "postinstall": "husky install",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
