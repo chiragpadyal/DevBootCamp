@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/DevBootCamp/static/css/main.521eb5c9.css",
+    "main.js": "/DevBootCamp/static/js/main.48820f50.js",
+    "index.html": "/DevBootCamp/index.html",
+    "main.521eb5c9.css.map": "/DevBootCamp/static/css/main.521eb5c9.css.map",
+    "main.48820f50.js.map": "/DevBootCamp/static/js/main.48820f50.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.521eb5c9.css",
+    "static/js/main.48820f50.js"
+  ]
+}
