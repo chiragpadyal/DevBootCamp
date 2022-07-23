@@ -1,11 +1,15 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 // import "./index.css";
-class Navbar extends Component {
-  render() {
-    return (
-      <header className="bg-white">
+import { NavLink } from "react-router-dom";
+import Sidebar from "./Sidebar";
+const Navbar = () => {
+  const [sidebar, setSidebar] = useState(false);
+  const showSidebar = () => setSidebar(!sidebar);
+  return (
+    <>
+      <header className="bg-white sticky top-0 z-50 ">
         <div className="flex items-center h-16 max-w-screen-xl gap-8 px-4 mx-auto sm:px-6 lg:px-8">
-          <a className="block text-teal-600" href="/">
+          <a className="block text-teal-600" onClick={showSidebar}>
             <span className="sr-only">Homes</span>
             <svg
               className="h-8"
@@ -31,12 +35,18 @@ class Navbar extends Component {
 
               <ul className="flex items-center gap-6 text-sm">
                 <li>
-                  <a
+                  {/* <a
+                  className="text-gray-500 transition hover:text-gray-500/75"
+                  href="/"
+                > */}
+                  <NavLink
                     className="text-gray-500 transition hover:text-gray-500/75"
-                    href="/"
+                    activeClassName="text-gray-500 transition hover:text-gray-500/75"
+                    to="/about"
                   >
                     about
-                  </a>
+                  </NavLink>
+                  {/* </a> */}
                 </li>
 
                 <li>
@@ -103,7 +113,10 @@ class Navbar extends Component {
                 </a>
               </div>
 
-              <button className="block p-2.5 text-gray-600 transition bg-gray-100 rounded md:hidden hover:text-gray-600/75">
+              <button
+                className="block p-2.5 text-gray-600 transition bg-gray-100 rounded md:hidden hover:text-gray-600/75"
+                onClick={showSidebar}
+              >
                 <span className="sr-only">Toggle menu</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -124,7 +137,10 @@ class Navbar extends Component {
           </div>
         </div>
       </header>
-    );
-  }
-}
+      <div className={sidebar ? "" : "hidden"}>
+        <Sidebar />
+      </div>
+    </>
+  );
+};
 export default Navbar;

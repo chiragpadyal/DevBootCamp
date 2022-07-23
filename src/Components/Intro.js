@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 // import "./index.css";
-class Homepage extends Component {
+class Intro extends Component {
   render() {
     return (
       <section className="relative bg-white">
@@ -47,4 +47,4 @@ class Homepage extends Component {
     );
   }
 }
-export default Homepage;
+export default Intro;

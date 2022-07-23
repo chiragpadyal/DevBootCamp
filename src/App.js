@@ -1,18 +1,18 @@
 import React, { Component } from "react";
-// import "./index.css";
-import Navbar from "./Components/Navbar";
-import Footer from "./Components/Footer";
-import Homepage from "./Components/Homepage";
+import Home from "./Pages/Home";
 
-class App extends Component {
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+export default class App extends Component {
   render() {
     return (
-      <>
-        <Navbar />
-        <Homepage />
-        <Footer />
-      </>
+      <Router>
+        <div className="App">
+          <Routes>
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </div>
+      </Router>
     );
   }
 }
-export default App;
