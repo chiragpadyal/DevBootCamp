@@ -16,5 +16,5 @@ All Developer related courses at one place.
 ## Contributers
 
 - [@Chirag Padyal](https://github.com/FreakStar03)
-- [@Anuj Kundar](https://github.com/FreakStar03)
+- [@Anuj Kundar](https://github.com/Anuj-Kundar)
 - [@Vishal Bangar](https://github.com/FreakStar03)
