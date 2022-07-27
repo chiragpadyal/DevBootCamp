@@ -9,7 +9,7 @@ export default class App extends Component {
       <Router>
         <div className="App">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/DevBootCamp/" element={<Home />} />
           </Routes>
         </div>
       </Router>
