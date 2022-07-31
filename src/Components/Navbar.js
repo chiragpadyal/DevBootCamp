@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 // import "./index.css";
 import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 import Sidebar from "./Sidebar";
 const Navbar = () => {
   const [sidebar, setSidebar] = useState(false);
@@ -98,16 +100,16 @@ const Navbar = () => {
 
             <div className="flex items-center gap-4">
               <div className="sm:gap-4 sm:flex">
-                <a
+                <Link
                   className="block px-5 py-2.5 text-sm font-medium text-white bg-teal-600 hover:bg-teal-700 transition rounded-md"
-                  href="/"
+                  to="/Devbootcamp/login"
                 >
                   Login
-                </a>
+                </Link>
 
                 <a
                   className="hidden sm:block px-5 py-2.5 text-sm font-medium text-teal-600 bg-gray-100 rounded-md hover:text-teal-600/75 transition"
-                  href="/"
+                  href="Devbootcamp/signup"
                 >
                   Register
                 </a>
