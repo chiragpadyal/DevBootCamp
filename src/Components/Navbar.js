@@ -102,17 +102,17 @@ const Navbar = () => {
               <div className="sm:gap-4 sm:flex">
                 <Link
                   className="block px-5 py-2.5 text-sm font-medium text-white bg-teal-600 hover:bg-teal-700 transition rounded-md"
-                  to="/Devbootcamp/login"
+                  to="login"
                 >
                   Login
                 </Link>
 
-                <a
+                <Link
                   className="hidden sm:block px-5 py-2.5 text-sm font-medium text-teal-600 bg-gray-100 rounded-md hover:text-teal-600/75 transition"
-                  href="Devbootcamp/signup"
+                  to="signup"
                 >
                   Register
-                </a>
+                </Link>
               </div>
 
               <button
