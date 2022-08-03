@@ -43,7 +43,6 @@ const Navbar = () => {
                 > */}
                   <NavLink
                     className="text-gray-500 transition hover:text-gray-500/75"
-                    activeClassName="text-gray-500 transition hover:text-gray-500/75"
                     to="/about"
                   >
                     about

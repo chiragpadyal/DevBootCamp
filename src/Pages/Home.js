@@ -5,6 +5,8 @@ import Footer from "../Components/Footer";
 import Intro from "../Components/Intro";
 // import { CardCourse } from "../Components/CardCourse";
 import { CardFLow } from "../Components/CardFLow";
+import { SectionStats } from "../Components/SectionStats";
+import { Testimonials } from "../Components/Testimonials";
 // import Sidebar from "../Components/Sidebar";
 
 class Home extends Component {
@@ -16,6 +18,8 @@ class Home extends Component {
             <Navbar />
             <Intro />
             <CardFLow />
+            <SectionStats />
+            <Testimonials />
             <Footer />
           </main>
         </div>
