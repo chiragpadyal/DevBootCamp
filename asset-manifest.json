@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/DevBootCamp/static/css/main.4e602c7e.css",
-    "main.js": "/DevBootCamp/static/js/main.47b1c0e2.js",
+    "main.css": "/DevBootCamp/static/css/main.39c29fa1.css",
+    "main.js": "/DevBootCamp/static/js/main.062fdacb.js",
     "index.html": "/DevBootCamp/index.html",
-    "main.4e602c7e.css.map": "/DevBootCamp/static/css/main.4e602c7e.css.map",
-    "main.47b1c0e2.js.map": "/DevBootCamp/static/js/main.47b1c0e2.js.map"
+    "main.39c29fa1.css.map": "/DevBootCamp/static/css/main.39c29fa1.css.map",
+    "main.062fdacb.js.map": "/DevBootCamp/static/js/main.062fdacb.js.map"
   },
   "entrypoints": [
-    "static/css/main.4e602c7e.css",
-    "static/js/main.47b1c0e2.js"
+    "static/css/main.39c29fa1.css",
+    "static/js/main.062fdacb.js"
   ]
 }
