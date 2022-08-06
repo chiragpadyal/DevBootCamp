@@ -26,5 +26,11 @@ export const DataCourses = [
       "wallpaper3.jpg",
       "wallpaper3.jpg",
     ],
+    Index: {
+      "Week 1": { data: ["Prerequisite", "Introduction"], locked: false },
+      "Week 2": { data: ["Arrays and Looping", "Varible Scope"], locked: true },
+      "Week 3": { data: ["Es6 fuction", "Async methods"], locked: true },
+      Misc: { data: ["Certificate", "Feedback"], locked: true },
+    },
   },
 ];
