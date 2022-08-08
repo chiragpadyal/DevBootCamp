@@ -1,13 +1,33 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "../Components/Footer";
 import { FaLock } from "react-icons/fa";
-// import Sidebar from "../Components/Sidebar";
-// import Sidebar from "../Components/Sidebar";
+
 import "../Components/styleCoursePanel.css";
-import { Textcontent } from "../Components/Textcontent";
+
 import { DataCourses } from "../Components/DataCourses";
+
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import remarkToc from "remark-toc";
+import rehypeHighlight from "rehype-highlight";
+import rehypeRaw from "rehype-raw";
+import rehypeSanitize from "rehype-sanitize";
+
 export const CoursePanel = () => {
+  // let page = [];
+
+  const page = [
+    require("../Content/1.md"),
+    require("../Content/2.md"),
+    require("../Content/3.md"),
+  ];
   const data = DataCourses[0].Index;
+  const [markdownPage, setMdPage] = useState(page[0]);
+  const [markdown, setMarkdown] = useState("");
+  const [btnClick, setbtnClick] = useState(false);
+  const setbtnFunc = () => setbtnClick(!btnClick);
+  const setPageFunc = (e) => setMdPage(e);
+  // var Markdown = require("../Content/1.md");
   useEffect(() => {
     // Fetch all the details element.
     const details = document.querySelectorAll("details");
@@ -23,14 +43,21 @@ export const CoursePanel = () => {
         });
       });
     });
-  });
+  }, [btnClick]);
+
+  useEffect(() => {
+    fetch(markdownPage)
+      .then((res) => res.text())
+      .then((text) => setMarkdown(text));
+  }, [markdownPage]);
+
   const loadIndex = () => {
     let list = [];
     for (let k in data) {
       {
         list.push(
           <li key={k} className="nav-item mb-2">
-            <details className="group">
+            <details className="group" onClick={setbtnFunc}>
               <summary className=" hover:text-purple-600 truncate flex items-center justify-between rounded-lg cursor-pointer bg-gray-50">
                 <h5 className="nav-link text-purple-800 text-gray-900">
                   <span className="fa fa-list-alt mr-2"></span>
@@ -62,9 +89,11 @@ export const CoursePanel = () => {
                             ? "nav-link pointer-events-none flex  justify-between  text-purple-400 hover:text-purple-600"
                             : "nav-link  flex  justify-between  text-purple-400 hover:text-purple-600"
                         }
-                        href="/#reports"
+                        onClick={() => setPageFunc(page[item.key])}
                       >
-                        <span className="fa fa-chart-bar ml-2">{item}</span>
+                        <span className="fa fa-chart-bar ml-2">
+                          {item.title}
+                        </span>
                         {data[k].locked ? <FaLock /> : ""}
                       </a>
                     </li>
@@ -80,9 +109,9 @@ export const CoursePanel = () => {
   };
   return (
     <>
-      <div className="container mx-auto">
-        <div className="flex flex-row flex-wrap py-4">
-          <aside className="w-full sm:w-1/3 md:w-1/4 px-2">
+      <div className="container  mx-auto">
+        <div className="flex  flex-row flex-wrap py-4">
+          <aside className=" border-solid md:border-r-[1px]   border-black w-full sm:w-1/3 md:w-1/4 px-2">
             <div className="sticky top-0 p-4 w-full">
               {/* <!-- navigation --> */}
               <ul className="nav flex flex-col overflow-hidden">
@@ -90,9 +119,17 @@ export const CoursePanel = () => {
               </ul>
             </div>
           </aside>
-          <main role="main" className="w-full sm:w-2/3 md:w-3/4 pt-1 px-2">
-            {/* <!-- content area --> */}
-            <Textcontent />
+          <main
+            role="main"
+            className=" md:pl-9  w-full sm:w-2/3 md:w-3/4 pt-1 px-2"
+          >
+            <ReactMarkdown
+              className="prose  max-w-none"
+              remarkPlugins={[remarkGfm, remarkToc]}
+              rehypePlugins={[rehypeHighlight, rehypeRaw, rehypeSanitize]}
+            >
+              {markdown}
+            </ReactMarkdown>
           </main>
         </div>
       </div>
