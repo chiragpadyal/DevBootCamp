@@ -14,7 +14,7 @@ export const CardFLow = () => {
           </h2>
         </div>
       </div>
-      <div className="grid m-5 grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-6 gap-y-10 gap-x-5 items-start">
+      <div className="grid m-5 grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-y-10 gap-x-5 items-start">
         {[...Array(more ? 18 : 6)].map((x, i) => (
           <CardCourse key={i} />
         ))}
