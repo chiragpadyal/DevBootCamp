@@ -1,9 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export const CardCourse = () => {
   return (
-    <a
-      href=""
+    <Link
+      to="course"
       className="block transform transition duration-500 hover:scale-105 border-solid hover:border-2 hover:border-purple-600 overflow-hidden rounded-2xl"
     >
       <img
@@ -30,6 +31,6 @@ export const CardCourse = () => {
           Enroll
         </button>
       </div>
-    </a>
+    </Link>
   );
 };
