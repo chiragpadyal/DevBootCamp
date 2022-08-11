@@ -21,6 +21,7 @@ export const CoursePanel = () => {
     require("../Content/2.md"),
     require("../Content/3.md"),
   ];
+
   const data = DataCourses[0].Index;
   const [markdownPage, setMdPage] = useState(page[0]);
   const [markdown, setMarkdown] = useState("");

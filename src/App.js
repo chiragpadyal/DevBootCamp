@@ -4,6 +4,7 @@ import Courseinfo from "./Pages/Courseinfo";
 
 import Home from "./Pages/Home";
 import { Login } from "./Pages/Login";
+import { Dashboard } from "./Pages/Dashboard";
 import ScrollToTop from "./Components/ScrollToTop";
 import { CoursePanel } from "./Pages/CoursePanel";
 import { NoMatch } from "./Pages/NoMatch";
@@ -28,6 +29,7 @@ export default class App extends Component {
               path="/DevBootCamp/course/:dynamic"
               element={<CoursePanel />}
             />
+            <Route path="/DevBootCamp/dashboard" element={<Dashboard />} />
             <Route path="*" element={<NoMatch />} />
           </Routes>
         </div>
