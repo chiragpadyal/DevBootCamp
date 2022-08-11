@@ -183,6 +183,22 @@ export const CourseInfo = () => {
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 ></iframe>
+                <div id="container" className="bg-gray-900">
+                  <ul className="list-reset flex flex-col justify-center items-center rounded-lg p-2 pt-0 w-2/6 text-lg">
+                    <li>
+                      <a href="#">A</a>
+                    </li>
+                    <li>
+                      <a href="#">B</a>
+                    </li>
+                    <li>
+                      <a href="#">C</a>
+                    </li>
+                    <li>
+                      <a href="#">D</a>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>

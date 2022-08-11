@@ -7,7 +7,7 @@ export const DashboardTabs = () => {
   return (
     <>
       <ul className="flex text-center border-b border-gray-200">
-        <li className="flex-1 pl-px">
+        <li className="  pl-px">
           <a
             className={
               current == "tab1"
@@ -25,7 +25,7 @@ export const DashboardTabs = () => {
           </a>
         </li>
 
-        <li className="flex-1 pl-px">
+        <li className="  pl-px">
           <a
             className={
               current == "tab2"
@@ -43,7 +43,7 @@ export const DashboardTabs = () => {
           </a>
         </li>
 
-        <li className="flex-1 pl-px">
+        <li className="  pl-px">
           <a
             className={
               current == "tab3"
