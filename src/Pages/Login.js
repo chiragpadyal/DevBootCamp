@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Modalforgetpass } from "../Components/Modalforgetpass";
-
-import { encode } from "base-64";
+import { userLoginFetch, selectCount } from "../features/counter/counterSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { Redirect } from "react-router";
+// import { encode } from "base-64";
 
 // Redux
 
-import { connect } from "react-redux";
-import { userLoginFetch } from "../redux/action";
+// import { connect } from "react-redux";
+// import { userLoginFetch } from "../redux/actions/actions";
 
 // import axios from "axios";
 export const Login = (props) => {
+  const dispatch = useDispatch();
   const [modal, setmodal] = useState(false);
   const showmodal = () => setmodal(!modal);
   const [username, setUsername] = useState("");
@@ -19,32 +22,25 @@ export const Login = (props) => {
   const onSubmitClick = (event) => {
     event.preventDefault();
     console.log("You pressed login");
-    let opts = {
-      // eslint-disable-next-line prettier/prettier
-      "username": username,
-      // eslint-disable-next-line prettier/prettier
-      "password": password,
-    };
-    console.log(opts);
-    fetch("/login", {
-      method: "post",
-      headers: new Headers({
-        // eslint-disable-next-line prettier/prettier
-        "Authorization": "Basic " + encode(username + ":" + password),
-        // "Content-Type": "application/json",
-      }),
-      // body: JSON.stringify(opts),
-    })
-      .then((r) => r.json())
-      .then((token) => {
-        if (token.token) {
-          console.log(token);
-          localStorage.setItem("token", token);
-          // dispatch(loginUser(data.user))
-        } else {
-          console.log("Please type in correct username/password");
-        }
-      });
+    // console.log(username + " " + password);
+    dispatch(
+      userLoginFetch({
+        username: username,
+        password: password,
+      })
+    );
+    ExampleErrorComponent();
+    // dispatch(userLoginFetch);
+  };
+  const count = useSelector(selectCount);
+  const error = localStorage.getItem("token");
+  const ExampleErrorComponent = () => {
+    console.log(!count);
+    if (!error) {
+      alert("Failed Login");
+    } else {
+      Redirect("/");
+    }
   };
 
   const handleUsernameChange = (e) => {
@@ -208,8 +204,8 @@ export const Login = (props) => {
     </>
   );
 };
-const mapDispatchToProps = (dispatch) => ({
-  userLoginFetch: (userInfo) => dispatch(userLoginFetch(userInfo)),
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   userLoginFetch: (userInfo) => dispatch(userLoginFetch(userInfo)),
+// });
 
-export default connect(null, mapDispatchToProps)(Login);
+// export default connect(null, mapDispatchToProps)(Login);
