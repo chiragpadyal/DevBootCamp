@@ -1,11 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./stylecourseinfo.css";
-import { DataCourses } from "./DataCourses";
+// import { DataCourses } from "./DataCourses";
 import { Link } from "react-router-dom";
-export const CourseInfo = () => {
-  const data = DataCourses[0];
-  let publicURL = process.env.PUBLIC_URL;
-  const [mainPic, setPic] = useState(publicURL + "/" + data.Images[0]);
+export const CourseInfo = (props) => {
+  const [data, setData] = useState(props.data);
+  // let data;
+  // data = props.data;
+  console.log(data.tags);
+  // data = DataCourses[0];
+  useEffect(() => {
+    setData(props.data);
+  }, [props.data]);
+  const publicURL = "http://localhost:5000/static/";
+  const [mainPic, setPic] = useState(publicURL + "/images/" + data.image[0]);
   const setPicture = (e) => setPic(e);
   const stars = () => {
     let content = [];
@@ -33,14 +40,14 @@ export const CourseInfo = () => {
           <div>
             <h1 className="text-2xl font-bold lg:text-3xl">{data.title}</h1>
 
-            <p className="mt-1 text-sm text-gray-500">
+            <div className="mt-1 text-sm text-gray-500">
               <div className="flex mt-2 -ml-0.5">
                 Rating:
                 {stars()}
                 {"( " + data.views + " "}
                 ratings{" )"}
               </div>
-            </p>
+            </div>
           </div>
 
           <div className="grid gap-8 lg:items-start lg:grid-cols-4">
@@ -54,13 +61,13 @@ export const CourseInfo = () => {
               </div>
 
               <ul className="flex gap-1 mt-1">
-                {data.Images.map((item, index) => {
+                {data.image.map((item, index) => {
                   return (
                     <li key={index}>
-                      <a onClick={() => setPicture(publicURL + "/" + item)}>
+                      <a onClick={() => setPicture(URL.createObjectURL(item))}>
                         <img
                           className="object-cover w-16 h-16 rounded-md"
-                          src={publicURL + "/" + item}
+                          src={publicURL + "/images/" + item}
                           alt=""
                         />
                       </a>
@@ -88,7 +95,11 @@ export const CourseInfo = () => {
                           >
                             <img
                               className="object-cover w-10 h-10 rounded-full"
-                              src={item.instructorImage}
+                              src={
+                                publicURL +
+                                "/instructor/" +
+                                item.instructorImage
+                              }
                               alt="Simon Lewis"
                             />
 
@@ -141,7 +152,7 @@ export const CourseInfo = () => {
                 <div>
                   <p className="text-xl font-bold">$19.99</p>
                 </div>
-                <Link to={data.link}>
+                <Link to={`/DevBootCamp/course/${data.link}/content`}>
                   <button
                     type="submit"
                     className="w-full px-6 py-3 text-sm font-bold tracking-wide text-white uppercase bg-red-700 rounded"

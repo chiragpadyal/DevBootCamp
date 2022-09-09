@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export const CardCourse = () => {
   return (
     <Link
-      to="/DevBootCamp/course"
+      to="/DevBootCamp/course/abc"
       className="block transform transition duration-500 hover:scale-105 border-solid hover:border-2 hover:border-purple-600 overflow-hidden rounded-2xl"
     >
       <img

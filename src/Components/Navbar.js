@@ -2,11 +2,24 @@ import React, { useState } from "react";
 // import "./index.css";
 import { NavLink } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { userSelector } from "../features/Users/UserSlice";
 
 import Sidebar from "./Sidebar";
 const Navbar = () => {
   const [sidebar, setSidebar] = useState(false);
   const showSidebar = () => setSidebar(!sidebar);
+
+  const {
+    username,
+    // email
+  } = useSelector(userSelector);
+
+  const logout = () => {
+    localStorage.removeItem("token");
+
+    window.location.reload();
+  };
   return (
     <>
       <header className="bg-white sticky top-0 z-50 ">
@@ -91,28 +104,40 @@ const Navbar = () => {
                     className="text-gray-500 transition hover:text-gray-500/75"
                     href="/"
                   >
-                    Blog
+                    {username}
                   </a>
                 </li>
               </ul>
             </nav>
 
             <div className="flex items-center gap-4">
-              <div className="sm:gap-4 sm:flex">
-                <Link
-                  className="block px-5 py-2.5 text-sm font-medium text-white bg-teal-600 hover:bg-teal-700 transition rounded-md"
-                  to="login"
-                >
-                  Login
-                </Link>
+              {username !== "" ? (
+                <div className="sm:gap-4 sm:flex">
+                  <Link
+                    className="block px-5 py-2.5 text-sm font-medium text-white bg-teal-600 hover:bg-teal-700 transition rounded-md"
+                    to="#"
+                    onClick={logout}
+                  >
+                    Logout
+                  </Link>
+                </div>
+              ) : (
+                <div className="sm:gap-4 sm:flex">
+                  <Link
+                    className="block px-5 py-2.5 text-sm font-medium text-white bg-teal-600 hover:bg-teal-700 transition rounded-md"
+                    to="login"
+                  >
+                    Login
+                  </Link>
 
-                <Link
-                  className="hidden sm:block px-5 py-2.5 text-sm font-medium text-teal-600 bg-gray-100 rounded-md hover:text-teal-600/75 transition"
-                  to="signup"
-                >
-                  Register
-                </Link>
-              </div>
+                  <Link
+                    className="hidden sm:block px-5 py-2.5 text-sm font-medium text-teal-600 bg-gray-100 rounded-md hover:text-teal-600/75 transition"
+                    to="signup"
+                  >
+                    Register
+                  </Link>
+                </div>
+              )}
 
               <button
                 className="block p-2.5 text-gray-600 transition bg-gray-100 rounded md:hidden hover:text-gray-600/75"

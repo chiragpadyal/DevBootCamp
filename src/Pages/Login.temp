@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Modalforgetpass } from "../Components/Modalforgetpass";
-import { userLoginFetch, selectCount } from "../features/counter/counterSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router";
+import {
+  userLoginFetch,
+  // selectCount
+} from "../features/counter/counterSlice";
+import {
+  useDispatch,
+  // useSelector
+} from "react-redux";
+// import { Redirect } from "react-router";
 // import { encode } from "base-64";
 
 // Redux
@@ -29,19 +35,19 @@ export const Login = (props) => {
         password: password,
       })
     );
-    ExampleErrorComponent();
+    // ExampleErrorComponent();
     // dispatch(userLoginFetch);
   };
-  const count = useSelector(selectCount);
-  const error = localStorage.getItem("token");
-  const ExampleErrorComponent = () => {
-    console.log(!count);
-    if (!error) {
-      alert("Failed Login");
-    } else {
-      Redirect("/");
-    }
-  };
+  // const count = useSelector(selectCount);
+  // const error = localStorage.getItem("token");
+  // const ExampleErrorComponent = () => {
+  //   console.log(!count);
+  //   if (!count) {
+  //     alert("Failed Login");
+  //   } else {
+  //     Redirect("/");
+  //   }
+  // };
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
