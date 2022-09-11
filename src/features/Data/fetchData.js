@@ -105,6 +105,95 @@ export const getAllCourses = createAsyncThunk(
   }
 );
 
+export const enrollUser = createAsyncThunk(
+  "users/enrollUser",
+  async ({ token, id }, thunkAPI) => {
+    try {
+      const response = await fetch(`/enroll${id}`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "x-access-tokens": token,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({}),
+      });
+      let data = await response.json();
+      console.log("data", data);
+
+      if (response.status === 200) {
+        console.log(data);
+        // localStorage.setItem("token", data.token);
+        return data;
+      } else {
+        return thunkAPI.rejectWithValue(data);
+      }
+    } catch (e) {
+      console.log("Error", e.response.data);
+      return thunkAPI.rejectWithValue(e.response.data);
+    }
+  }
+);
+
+export const checkenrollUser = createAsyncThunk(
+  "users/checkenrollUser",
+  async ({ token, id }, thunkAPI) => {
+    try {
+      const response = await fetch(`/enroll${id}`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "x-access-tokens": token,
+          "Content-Type": "application/json",
+        },
+      });
+      let data = await response.json();
+      console.log("data", data);
+
+      if (response.status === 200) {
+        console.log(data);
+        // localStorage.setItem("token", data.token);
+        return data;
+      } else {
+        return thunkAPI.rejectWithValue(data);
+      }
+    } catch (e) {
+      console.log("Error", e.response.data);
+      return thunkAPI.rejectWithValue(e.response.data);
+    }
+  }
+);
+
+export const updateCompletion = createAsyncThunk(
+  "users/updateCompletion",
+  async ({ token, key, courselink }, thunkAPI) => {
+    try {
+      const response = await fetch(`/completion${courselink}/${key}`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "x-access-tokens": token,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({}),
+      });
+      let data = await response.json();
+      console.log("data", data);
+
+      if (response.status === 200) {
+        console.log(data);
+        // localStorage.setItem("token", data.token);
+        return data;
+      } else {
+        return thunkAPI.rejectWithValue(data);
+      }
+    } catch (e) {
+      console.log("Error", e.response.data);
+      return thunkAPI.rejectWithValue(e.response.data);
+    }
+  }
+);
+
 export const dataSlice = createSlice({
   name: "data",
   initialState: {
@@ -114,6 +203,7 @@ export const dataSlice = createSlice({
     isFetching: false,
     isSuccess: false,
     isError: false,
+    isEnrolled: false,
     // errorMessage: "",
   },
   reducers: {
@@ -121,7 +211,8 @@ export const dataSlice = createSlice({
       state.isError = false;
       state.isSuccess = false;
       state.isFetching = false;
-
+      state.isEnrolled = false;
+      state.checkCompletion = false;
       return state;
     },
   },
@@ -165,6 +256,38 @@ export const dataSlice = createSlice({
     [getMarkdown.rejected]: (state) => {
       state.isFetching = false;
       state.isError = true;
+    },
+
+    [enrollUser.pending]: (state) => {
+      state.isFetching = true;
+    },
+    [enrollUser.fulfilled]: (state) => {
+      state.isFetching = false;
+      state.isSuccess = true;
+      state.isEnrolled = true;
+    },
+    [enrollUser.rejected]: (state) => {
+      state.isFetching = false;
+      state.isError = true;
+    },
+
+    // [checkenrollUser.pending]: (state) => {
+    //   state.isFetching = true;
+    // },
+    [checkenrollUser.fulfilled]: (state) => {
+      state.isFetching = false;
+      state.isSuccess = true;
+      state.isEnrolled = true;
+    },
+    // [checkenrollUser.rejected]: (state) => {
+    //   state.isFetching = false;
+    //   state.isError = true;
+    // },
+
+    [updateCompletion.fulfilled]: (state) => {
+      state.isFetching = false;
+      state.isSuccess = true;
+      state.checkCompletion = !state.checkCompletion;
     },
   },
 });

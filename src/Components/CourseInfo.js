@@ -1,19 +1,33 @@
 import React, { useEffect, useState } from "react";
 import "./stylecourseinfo.css";
 // import { DataCourses } from "./DataCourses";
-import { Link } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
+
 export const CourseInfo = (props) => {
+  // const history = useHistory();
+
   const [data, setData] = useState(props.data);
   // let data;
   // data = props.data;
-  console.log(data.tags);
+  // console.log(data.tags);
   // data = DataCourses[0];
   useEffect(() => {
     setData(props.data);
   }, [props.data]);
-  const publicURL = "http://localhost:5000/static/";
+  const publicURL = "/static/";
   const [mainPic, setPic] = useState(publicURL + "/images/" + data.image[0]);
   const setPicture = (e) => setPic(e);
+
+  const enroll = (event) => {
+    event.preventDefault();
+    props.enroll(event);
+  };
+
+  const tongleToContent = (event) => {
+    event.preventDefault();
+    props.tongle(event);
+  };
+
   const stars = () => {
     let content = [];
     for (let i = 1; i <= 5; i++) {
@@ -64,7 +78,11 @@ export const CourseInfo = (props) => {
                 {data.image.map((item, index) => {
                   return (
                     <li key={index}>
-                      <a onClick={() => setPicture(URL.createObjectURL(item))}>
+                      <a
+                        onClick={() =>
+                          setPicture(publicURL + "/images/" + item)
+                        }
+                      >
                         <img
                           className="object-cover w-16 h-16 rounded-md"
                           src={publicURL + "/images/" + item}
@@ -139,27 +157,32 @@ export const CourseInfo = (props) => {
 
                 <div className="p-4 bg-gray-100 border rounded">
                   <p className="text-sm">
-                    <span className="block">
-                      Pay as low as $3/mo with 0% APR.
-                    </span>
-
-                    <a href="" className="inline-block mt-1 underline">
-                      Find out more
-                    </a>
+                    <span className="block">No ongoing offers</span>
                   </p>
                 </div>
 
                 <div>
                   <p className="text-xl font-bold">$19.99</p>
                 </div>
-                <Link to={`/DevBootCamp/course/${data.link}/content`}>
+                {/* <Link to={`/DevBootCamp/course/${data.link}/content`}> */}
+                {props.enrollstatus ? (
                   <button
                     type="submit"
                     className="w-full px-6 py-3 text-sm font-bold tracking-wide text-white uppercase bg-red-700 rounded"
+                    // onClick={() => history.push(`${data.link}/content`)}
+                    onClick={tongleToContent}
+                  >
+                    Enrolled
+                  </button>
+                ) : (
+                  <button
+                    className="w-full px-6 py-3 text-sm font-bold tracking-wide text-white uppercase bg-red-700 rounded"
+                    onClick={enroll}
                   >
                     Enroll
                   </button>
-                </Link>
+                )}
+                {/* </Link> */}
                 <button
                   type="button"
                   className="w-full px-6 py-3 text-sm font-bold tracking-wide uppercase bg-gray-100 border border-gray-300 rounded"
@@ -187,29 +210,6 @@ export const CourseInfo = (props) => {
                   <li>Approx. 54 hours to complete</li>
                   <li>English language</li>
                 </ul>
-
-                <iframe
-                  src="https://www.youtube-nocookie.com/embed/Eb-Vfe61W6A?controls=0"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-                <div id="container" className="bg-gray-900">
-                  <ul className="list-reset flex flex-col justify-center items-center rounded-lg p-2 pt-0 w-2/6 text-lg">
-                    <li>
-                      <a href="#">A</a>
-                    </li>
-                    <li>
-                      <a href="#">B</a>
-                    </li>
-                    <li>
-                      <a href="#">C</a>
-                    </li>
-                    <li>
-                      <a href="#">D</a>
-                    </li>
-                  </ul>
-                </div>
               </div>
             </div>
           </div>

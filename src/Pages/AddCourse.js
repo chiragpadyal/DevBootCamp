@@ -81,34 +81,18 @@ export class AddCourse extends React.Component {
       Instructors: this.state.newInstructors,
       image: this.state.newfiles,
       Index: {
-        "Week 1": {
-          data: [
-            { title: "Prerequisite", key: 0 },
-            { title: "Introduction", key: 1 },
-          ],
-          locked: false,
-        },
-        "Week 2": {
-          data: [
-            { title: "Arrays and Looping", key: 2 },
-            { title: "Varible Scope", key: 3 },
-          ],
-          locked: true,
-        },
-        "Week 3": {
-          data: [
-            { title: "Es6 fuction", key: 4 },
-            { title: "Async methods", key: 5 },
-          ],
-          locked: true,
-        },
-        Misc: {
-          data: [
-            { title: "Certificate", key: 6 },
-            { title: "Feedback", key: 7 },
-          ],
-          locked: true,
-        },
+        "Week 1": [
+          { title: "Prerequisite", key: 0 },
+          { title: "Introduction", key: 1 },
+        ],
+        "Week 2": [
+          { title: "Arrays and Looping", key: 2 },
+          { title: "Varible Scope", key: 3 },
+        ],
+        "Week 3": [
+          { title: "Es6 fuction", key: 4 },
+          { title: "Async methods", key: 5 },
+        ],
       },
       rate: this.state.rate,
       tags: this.state.tags,

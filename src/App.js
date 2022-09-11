@@ -5,7 +5,6 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-import Courseinfo from "./Pages/Courseinfo";
 
 // import Home from "./Pages/Home";
 // import { Login } from "./Pages/Login";
@@ -17,8 +16,10 @@ import { PrivateRoute } from "./helpers/PrivateRoute";
 
 import { Dashboard as DashMain } from "./Pages/Dashboard";
 import ScrollToTop from "./Components/ScrollToTop";
-import { CoursePanel } from "./Pages/CoursePanel";
+// import { CoursePanel } from "./Pages/CoursePanel";
 import { AddCourse } from "./Pages/AddCourse";
+import Article from "./Pages/loadMdDynamic";
+import Courseinfo from "./Pages/Course";
 // import { NoMatch } from "./Pages/NoMatch";
 
 export default class App extends Component {
@@ -34,10 +35,10 @@ export default class App extends Component {
             <Route exact component={Login} path="/DevBootCamp/login" />
             <Route exact component={Signup} path="/DevBootCamp/signup" />
             <Route exact component={Dashboard} path="/DevBootCamp" />
-            <PrivateRoute
+            {/* <PrivateRoute
               path="/DevBootCamp/course/:dynamic/content"
               component={CoursePanel}
-            />
+            /> */}
             <PrivateRoute
               exact
               path="/DevBootCamp/course/:dynamic"
@@ -45,6 +46,7 @@ export default class App extends Component {
             />
             <Route path="/DevBootCamp/dashboard" component={DashMain} />
             <Route path="/DevBootCamp/add" component={AddCourse} />
+            <Route path="/DevBootCamp/test" component={Article} />
             <Redirect from="/" to="/DevBootCamp/" />
           </Switch>
         </div>
