@@ -14,7 +14,7 @@ export const CourseInfo = (props) => {
   useEffect(() => {
     setData(props.data);
   }, [props.data]);
-  const publicURL = "/static/";
+  const publicURL = "https://devbootcamp-backend.herokuapp.com/static/";
   const [mainPic, setPic] = useState(publicURL + "/images/" + data.image[0]);
   const setPicture = (e) => setPic(e);
 

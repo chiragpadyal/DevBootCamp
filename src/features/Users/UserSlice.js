@@ -5,18 +5,21 @@ export const signupUser = createAsyncThunk(
   "users/signupUser",
   async ({ name, email, password }, thunkAPI) => {
     try {
-      const response = await fetch("/register", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: name,
-          email: email,
-          password: password,
-        }),
-      });
+      const response = await fetch(
+        "https://devbootcamp-backend.herokuapp.com/register",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            password: password,
+          }),
+        }
+      );
       let data = await response.json();
       console.log("data", data);
 
@@ -38,12 +41,15 @@ export const loginUser = createAsyncThunk(
   "users/login",
   async ({ email, password }, thunkAPI) => {
     try {
-      const response = await fetch("/login", {
-        method: "post",
-        headers: new Headers({
-          Authorization: "Basic " + encode(email + ":" + password),
-        }),
-      });
+      const response = await fetch(
+        "https://devbootcamp-backend.herokuapp.com/login",
+        {
+          method: "post",
+          headers: new Headers({
+            Authorization: "Basic " + encode(email + ":" + password),
+          }),
+        }
+      );
       let data = await response.json();
       console.log("response", data);
       if (response.status === 200) {
@@ -63,15 +69,18 @@ export const fetchUserBytoken = createAsyncThunk(
   "users/fetchUserByToken",
   async ({ token }, thunkAPI) => {
     try {
-      const response = await fetch("/login", {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          // Authorization: token,
-          "x-access-tokens": token,
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        "https://devbootcamp-backend.herokuapp.com/login",
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            // Authorization: token,
+            "x-access-tokens": token,
+            "Content-Type": "application/json",
+          },
+        }
+      );
       let data = await response.json();
       console.log("data", data, response.status);
 

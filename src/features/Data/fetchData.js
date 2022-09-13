@@ -22,14 +22,17 @@ export const getCourse = createAsyncThunk(
   "users/getCourse",
   async ({ token, id }, thunkAPI) => {
     try {
-      const response = await fetch(`/course${id}`, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "x-access-tokens": token,
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `https://devbootcamp-backend.herokuapp.com/course${id}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "x-access-tokens": token,
+            "Content-Type": "application/json",
+          },
+        }
+      );
       let data = await response.json();
       console.log("data", data);
 
@@ -51,14 +54,17 @@ export const getMarkdown = createAsyncThunk(
   "users/getMarkdown",
   async ({ token, id, index }, thunkAPI) => {
     try {
-      const response = await fetch(`/course/${id}/index/${index}`, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "x-access-tokens": token,
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `https://devbootcamp-backend.herokuapp.com/course/${id}/index/${index}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "x-access-tokens": token,
+            "Content-Type": "application/json",
+          },
+        }
+      );
       let data = await response.json();
       console.log("data", data);
 
@@ -80,14 +86,17 @@ export const getAllCourses = createAsyncThunk(
   "users/getAllCourses",
   async ({ token }, thunkAPI) => {
     try {
-      const response = await fetch(`/allcourses`, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "x-access-tokens": token,
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `https://devbootcamp-backend.herokuapp.com/allcourses`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "x-access-tokens": token,
+            "Content-Type": "application/json",
+          },
+        }
+      );
       let data = await response.json();
       console.log("data", data);
 
@@ -109,15 +118,18 @@ export const enrollUser = createAsyncThunk(
   "users/enrollUser",
   async ({ token, id }, thunkAPI) => {
     try {
-      const response = await fetch(`/enroll${id}`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "x-access-tokens": token,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({}),
-      });
+      const response = await fetch(
+        `https://devbootcamp-backend.herokuapp.com/enroll${id}`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "x-access-tokens": token,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({}),
+        }
+      );
       let data = await response.json();
       console.log("data", data);
 
@@ -139,14 +151,17 @@ export const checkenrollUser = createAsyncThunk(
   "users/checkenrollUser",
   async ({ token, id }, thunkAPI) => {
     try {
-      const response = await fetch(`/enroll${id}`, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "x-access-tokens": token,
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `https://devbootcamp-backend.herokuapp.com/enroll${id}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "x-access-tokens": token,
+            "Content-Type": "application/json",
+          },
+        }
+      );
       let data = await response.json();
       console.log("data", data);
 
@@ -168,15 +183,18 @@ export const updateCompletion = createAsyncThunk(
   "users/updateCompletion",
   async ({ token, key, courselink }, thunkAPI) => {
     try {
-      const response = await fetch(`/completion${courselink}/${key}`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "x-access-tokens": token,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({}),
-      });
+      const response = await fetch(
+        `https://devbootcamp-backend.herokuapp.com/completion${courselink}/${key}`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "x-access-tokens": token,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({}),
+        }
+      );
       let data = await response.json();
       console.log("data", data);
 
