@@ -94,5 +94,5 @@
       "pre-commit": "lint-staged"
     }
   },
-  "proxy": "http://localhost:5000"
+  "proxy": "https://devbootcamp-backend.herokuapp.com"
 }
