@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 // import "./index.css";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
@@ -8,23 +8,22 @@ import { CardFLow } from "../Components/CardFLow";
 import { SectionStats } from "../Components/SectionStats";
 import { Testimonials } from "../Components/Testimonials";
 // import Sidebar from "../Components/Sidebar";
+// import { fetchData } from "../features/Data/fetchData";
 
-class Home extends Component {
-  render() {
-    return (
-      <>
-        <div className="flex">
-          <main className="flex-1">
-            <Navbar />
-            <Intro />
-            <CardFLow />
-            <SectionStats />
-            <Testimonials />
-            <Footer />
-          </main>
-        </div>
-      </>
-    );
-  }
-}
+const Home = (props) => {
+  return (
+    <>
+      <div className="flex">
+        <main className="flex-1">
+          <Navbar data={props.data} />
+          <Intro />
+          <CardFLow />
+          <SectionStats />
+          <Testimonials />
+          <Footer />
+        </main>
+      </div>
+    </>
+  );
+};
 export default Home;

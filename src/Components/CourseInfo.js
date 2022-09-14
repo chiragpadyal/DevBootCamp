@@ -1,12 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./stylecourseinfo.css";
-import { DataCourses } from "./DataCourses";
-import { Link } from "react-router-dom";
-export const CourseInfo = () => {
-  const data = DataCourses[0];
-  let publicURL = process.env.PUBLIC_URL;
-  const [mainPic, setPic] = useState(publicURL + "/" + data.Images[0]);
+// import { DataCourses } from "./DataCourses";
+// import { useHistory } from "react-router-dom";
+
+export const CourseInfo = (props) => {
+  // const history = useHistory();
+
+  const [data, setData] = useState(props.data);
+  // let data;
+  // data = props.data;
+  // console.log(data.tags);
+  // data = DataCourses[0];
+  useEffect(() => {
+    setData(props.data);
+  }, [props.data]);
+  const publicURL = "https://devbootcamp-backend.herokuapp.com/static/";
+  const [mainPic, setPic] = useState(publicURL + "/images/" + data.image[0]);
   const setPicture = (e) => setPic(e);
+
+  const enroll = (event) => {
+    event.preventDefault();
+    props.enroll(event);
+  };
+
+  const tongleToContent = (event) => {
+    event.preventDefault();
+    props.tongle(event);
+  };
+
   const stars = () => {
     let content = [];
     for (let i = 1; i <= 5; i++) {
@@ -33,14 +54,14 @@ export const CourseInfo = () => {
           <div>
             <h1 className="text-2xl font-bold lg:text-3xl">{data.title}</h1>
 
-            <p className="mt-1 text-sm text-gray-500">
+            <div className="mt-1 text-sm text-gray-500">
               <div className="flex mt-2 -ml-0.5">
                 Rating:
                 {stars()}
                 {"( " + data.views + " "}
                 ratings{" )"}
               </div>
-            </p>
+            </div>
           </div>
 
           <div className="grid gap-8 lg:items-start lg:grid-cols-4">
@@ -54,13 +75,17 @@ export const CourseInfo = () => {
               </div>
 
               <ul className="flex gap-1 mt-1">
-                {data.Images.map((item, index) => {
+                {data.image.map((item, index) => {
                   return (
                     <li key={index}>
-                      <a onClick={() => setPicture(publicURL + "/" + item)}>
+                      <a
+                        onClick={() =>
+                          setPicture(publicURL + "/images/" + item)
+                        }
+                      >
                         <img
                           className="object-cover w-16 h-16 rounded-md"
-                          src={publicURL + "/" + item}
+                          src={publicURL + "/images/" + item}
                           alt=""
                         />
                       </a>
@@ -88,7 +113,11 @@ export const CourseInfo = () => {
                           >
                             <img
                               className="object-cover w-10 h-10 rounded-full"
-                              src={item.instructorImage}
+                              src={
+                                publicURL +
+                                "/instructor/" +
+                                item.instructorImage
+                              }
                               alt="Simon Lewis"
                             />
 
@@ -128,27 +157,32 @@ export const CourseInfo = () => {
 
                 <div className="p-4 bg-gray-100 border rounded">
                   <p className="text-sm">
-                    <span className="block">
-                      Pay as low as $3/mo with 0% APR.
-                    </span>
-
-                    <a href="" className="inline-block mt-1 underline">
-                      Find out more
-                    </a>
+                    <span className="block">No ongoing offers</span>
                   </p>
                 </div>
 
                 <div>
                   <p className="text-xl font-bold">$19.99</p>
                 </div>
-                <Link to={data.link}>
+                {/* <Link to={`/DevBootCamp/course/${data.link}/content`}> */}
+                {props.enrollstatus ? (
                   <button
                     type="submit"
                     className="w-full px-6 py-3 text-sm font-bold tracking-wide text-white uppercase bg-red-700 rounded"
+                    // onClick={() => history.push(`${data.link}/content`)}
+                    onClick={tongleToContent}
+                  >
+                    Enrolled
+                  </button>
+                ) : (
+                  <button
+                    className="w-full px-6 py-3 text-sm font-bold tracking-wide text-white uppercase bg-red-700 rounded"
+                    onClick={enroll}
                   >
                     Enroll
                   </button>
-                </Link>
+                )}
+                {/* </Link> */}
                 <button
                   type="button"
                   className="w-full px-6 py-3 text-sm font-bold tracking-wide uppercase bg-gray-100 border border-gray-300 rounded"
@@ -176,29 +210,6 @@ export const CourseInfo = () => {
                   <li>Approx. 54 hours to complete</li>
                   <li>English language</li>
                 </ul>
-
-                <iframe
-                  src="https://www.youtube-nocookie.com/embed/Eb-Vfe61W6A?controls=0"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-                <div id="container" className="bg-gray-900">
-                  <ul className="list-reset flex flex-col justify-center items-center rounded-lg p-2 pt-0 w-2/6 text-lg">
-                    <li>
-                      <a href="#">A</a>
-                    </li>
-                    <li>
-                      <a href="#">B</a>
-                    </li>
-                    <li>
-                      <a href="#">C</a>
-                    </li>
-                    <li>
-                      <a href="#">D</a>
-                    </li>
-                  </ul>
-                </div>
               </div>
             </div>
           </div>
