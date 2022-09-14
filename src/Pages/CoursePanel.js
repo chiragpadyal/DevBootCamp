@@ -58,7 +58,7 @@ export const CoursePanel = (props) => {
   useEffect(() => {
     // console.log(markdownPage);
     if (markdownPage)
-      fetch(`https://devbootcamp-backend.herokuapp.com/md/${markdownPage}`, {
+      fetch(`${process.env.REACT_APP_BACKEND_API}md/${markdownPage}`, {
         headers: {
           "x-access-tokens": localStorage.getItem("token"),
         },

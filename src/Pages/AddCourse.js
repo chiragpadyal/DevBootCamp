@@ -37,7 +37,7 @@ export class AddCourse extends React.Component {
       formDataforInstructor.append("file", element.instructorImage); //text
     });
 
-    fetch("https://devbootcamp-backend.herokuapp.com/upload/images", {
+    fetch(`${process.env.REACT_APP_BACKEND_API}upload/images`, {
       method: "POST",
       body: formData,
     }).then((response) => {
@@ -47,7 +47,7 @@ export class AddCourse extends React.Component {
       });
     });
 
-    fetch("https://devbootcamp-backend.herokuapp.com/upload/instructor", {
+    fetch(`${process.env.REACT_APP_BACKEND_API}upload/instructor`, {
       method: "POST",
       body: formDataforInstructor,
     }).then((response) => {
@@ -99,18 +99,15 @@ export class AddCourse extends React.Component {
       views: 0,
     };
 
-    const response = await fetch(
-      "https://devbootcamp-backend.herokuapp.com/course",
-      {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "x-access-tokens": localStorage.getItem("token"),
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(final),
-      }
-    );
+    const response = await fetch(`${process.env.REACT_APP_BACKEND_API}course`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "x-access-tokens": localStorage.getItem("token"),
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(final),
+    });
     let data = await response.json();
     console.log("data", data);
 

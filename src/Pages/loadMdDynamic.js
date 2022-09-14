@@ -14,7 +14,7 @@ export default class Article extends React.Component {
   }
 
   async componentDidMount() {
-    const file = await fetch("https://devbootcamp-backend.herokuapp.com/md/1");
+    const file = await fetch(`${process.env.REACT_APP_BACKEND_API}md/1`);
     const text = await file.text();
 
     this.setState({

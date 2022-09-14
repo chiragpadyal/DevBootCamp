@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./stylecourseinfo.css";
 // import { DataCourses } from "./DataCourses";
 // import { useHistory } from "react-router-dom";
@@ -6,15 +6,13 @@ import "./stylecourseinfo.css";
 export const CourseInfo = (props) => {
   // const history = useHistory();
 
-  const [data, setData] = useState(props.data);
+  const [data] = useState(props.data);
   // let data;
   // data = props.data;
   // console.log(data.tags);
   // data = DataCourses[0];
-  useEffect(() => {
-    setData(props.data);
-  }, [props.data]);
-  const publicURL = "https://devbootcamp-backend.herokuapp.com/static/";
+
+  const publicURL = `${process.env.REACT_APP_BACKEND_API}static/`;
   const [mainPic, setPic] = useState(publicURL + "/images/" + data.image[0]);
   const setPicture = (e) => setPic(e);
 

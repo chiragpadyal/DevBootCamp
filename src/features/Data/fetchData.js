@@ -23,7 +23,7 @@ export const getCourse = createAsyncThunk(
   async ({ token, id }, thunkAPI) => {
     try {
       const response = await fetch(
-        `https://devbootcamp-backend.herokuapp.com/course${id}`,
+        `${process.env.REACT_APP_BACKEND_API}course${id}`,
         {
           method: "GET",
           headers: {
@@ -55,7 +55,7 @@ export const getMarkdown = createAsyncThunk(
   async ({ token, id, index }, thunkAPI) => {
     try {
       const response = await fetch(
-        `https://devbootcamp-backend.herokuapp.com/course/${id}/index/${index}`,
+        `${process.env.REACT_APP_BACKEND_API}${id}/index/${index}`,
         {
           method: "GET",
           headers: {
@@ -87,7 +87,7 @@ export const getAllCourses = createAsyncThunk(
   async ({ token }, thunkAPI) => {
     try {
       const response = await fetch(
-        `https://devbootcamp-backend.herokuapp.com/allcourses`,
+        `${process.env.REACT_APP_BACKEND_API}allcourses`,
         {
           method: "GET",
           headers: {
@@ -119,7 +119,7 @@ export const enrollUser = createAsyncThunk(
   async ({ token, id }, thunkAPI) => {
     try {
       const response = await fetch(
-        `https://devbootcamp-backend.herokuapp.com/enroll${id}`,
+        `${process.env.REACT_APP_BACKEND_API}enroll${id}`,
         {
           method: "POST",
           headers: {
@@ -152,7 +152,7 @@ export const checkenrollUser = createAsyncThunk(
   async ({ token, id }, thunkAPI) => {
     try {
       const response = await fetch(
-        `https://devbootcamp-backend.herokuapp.com/enroll${id}`,
+        `${process.env.REACT_APP_BACKEND_API}enroll${id}`,
         {
           method: "GET",
           headers: {
@@ -184,7 +184,7 @@ export const updateCompletion = createAsyncThunk(
   async ({ token, key, courselink }, thunkAPI) => {
     try {
       const response = await fetch(
-        `https://devbootcamp-backend.herokuapp.com/completion${courselink}/${key}`,
+        `${process.env.REACT_APP_BACKEND_API}completion${courselink}/${key}`,
         {
           method: "POST",
           headers: {

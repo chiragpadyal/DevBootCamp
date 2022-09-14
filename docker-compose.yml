@@ -1,0 +1,54 @@
+version: "3"
+services:
+  postgres:
+    container_name: postgres_container2
+    image: postgres
+    environment:
+      POSTGRES_USER: freakstar03
+      POSTGRES_PASSWORD: password
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  pgadmin:
+    container_name: pgadmin_container2
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: freakstar03@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: secret
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+
+    ports:
+      - "5052:80"
+    restart: unless-stopped
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    image: react-flask-app-api
+    environment:
+      - APP_SETTINGS="config.ProductionConfig"
+      - DATABASE_URL="postgresql://freakstar03:password@172.18.0.3:5432/devbootcamp"
+      - SECRET_KEY="004f2af45d3a4e161a7dd2d17fdae47f"
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    image: react-flask-app-client
+    ports:
+      - "3000:80"
+
+volumes:
+  postgres:
+  pgadmin:
+
+  # environment:
+  #   - APP_SETTINGS="config.ProductionConfig"
+  #   - DATABASE_URL="postgresql://freakstar03:password@172.18.0.3:5432/devbootcamp"
+  #   - SECRET_KEY="004f2af45d3a4e161a7dd2d17fdae47f"

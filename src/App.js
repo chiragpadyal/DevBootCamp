@@ -44,7 +44,7 @@ export default class App extends Component {
               path="/DevBootCamp/course/:dynamic"
               component={Courseinfo}
             />
-            <Route path="/DevBootCamp/dashboard" component={DashMain} />
+            <PrivateRoute path="/DevBootCamp/category" component={DashMain} />
             <Route path="/DevBootCamp/add" component={AddCourse} />
             <Route path="/DevBootCamp/test" component={Article} />
             <Redirect from="/" to="/DevBootCamp/" />

@@ -30,7 +30,7 @@ export const CoursePanel = () => {
   // var Markdown = require("../Content/1.md");
 
   async function loadmarkdown() {
-    const file = await fetch("https://devbootcamp-backend.herokuapp.com/md/1");
+    const file = await fetch(`${process.env.REACT_APP_BACKEND_API}md/1`);
     const text = await file.text();
     console.log(text);
     setMarkdown(text);

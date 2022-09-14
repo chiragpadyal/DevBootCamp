@@ -6,7 +6,7 @@ export const signupUser = createAsyncThunk(
   async ({ name, email, password }, thunkAPI) => {
     try {
       const response = await fetch(
-        "https://devbootcamp-backend.herokuapp.com/register",
+        `${process.env.REACT_APP_BACKEND_API}register`,
         {
           method: "POST",
           headers: {
@@ -42,7 +42,7 @@ export const loginUser = createAsyncThunk(
   async ({ email, password }, thunkAPI) => {
     try {
       const response = await fetch(
-        "https://devbootcamp-backend.herokuapp.com/login",
+        `${process.env.REACT_APP_BACKEND_API}login`,
         {
           method: "post",
           headers: new Headers({
@@ -70,7 +70,7 @@ export const fetchUserBytoken = createAsyncThunk(
   async ({ token }, thunkAPI) => {
     try {
       const response = await fetch(
-        "https://devbootcamp-backend.herokuapp.com/login",
+        `${process.env.REACT_APP_BACKEND_API}login`,
         {
           method: "GET",
           headers: {

@@ -4,8 +4,9 @@ import { NavLink } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { userSelector } from "../features/Users/UserSlice";
-
+import { combineContent } from "../Content/combineContent";
 import Sidebar from "./Sidebar";
+import { navbarContent } from "../Content/navbarContent";
 const Navbar = () => {
   const [sidebar, setSidebar] = useState(false);
   const showSidebar = () => setSidebar(!sidebar);
@@ -26,7 +27,7 @@ const Navbar = () => {
         <div className="flex items-center h-16 max-w-screen-xl gap-8 px-4 mx-auto sm:px-6 lg:px-8">
           <a className="block text-teal-600" onClick={showSidebar}>
             <span className="sr-only">Homes</span>
-            <p>Devbootcamp</p>
+            <p>{combineContent.title}</p>
           </a>
 
           <div className="flex items-center justify-end flex-1 md:justify-between">
@@ -39,19 +40,19 @@ const Navbar = () => {
               </h2>
 
               <ul className="flex items-center gap-6 text-sm">
-                <li>
-                  {/* <a
-                  className="text-gray-500 transition hover:text-gray-500/75"
-                  href="/"
-                > */}
-                  <NavLink
-                    className="text-gray-500 transition hover:text-gray-500/75"
-                    to="/about"
-                  >
-                    Categories
-                  </NavLink>
-                  {/* </a> */}
-                </li>
+                {navbarContent.map((item, index) => (
+                  <li key={index}>
+                    <NavLink
+                      className="text-gray-500 transition hover:text-gray-500/75"
+                      to={item.to}
+                    >
+                      <span style={{ display: "flex", alignItems: "center" }}>
+                        <span className="pr-1">{item.icon}</span>
+                        {item.title}
+                      </span>
+                    </NavLink>
+                  </li>
+                ))}
               </ul>
             </nav>
 

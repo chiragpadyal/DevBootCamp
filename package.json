@@ -93,6 +93,5 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
-  },
-  "proxy": "https://devbootcamp-backend.herokuapp.com"
+  }
 }

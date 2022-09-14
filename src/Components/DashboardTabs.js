@@ -1,9 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CardCourse } from "./CardCourse";
 import { CardPagination } from "./CardPagination";
 
 export const DashboardTabs = () => {
   const [current, setCurrent] = useState("tab1");
+  const [allcourses, setAllcourses] = useState(null);
+
+  async function getAllcourses() {
+    const response = await fetch(
+      `${process.env.REACT_APP_BACKEND_API}allcoursesofuser`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "x-access-tokens": localStorage.getItem("token"),
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    let data = await response.json();
+    if (response.status === 200) {
+      setAllcourses(data.list_of_books);
+    } else {
+      return console.log(data);
+    }
+  }
+
+  useEffect(() => {
+    if (!allcourses) getAllcourses();
+  }, []);
+
   return (
     <>
       <ul className="flex text-center border-b border-gray-200">
@@ -63,9 +89,53 @@ export const DashboardTabs = () => {
       </ul>
       <br />
       <div className="grid m-5 grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-y-10 gap-x-5 items-start">
-        {[...Array(6)].map((x, i) => (
-          <CardCourse key={i} />
-        ))}
+        {current == "tab1"
+          ? allcourses
+            ? allcourses.map((x, i) => (
+                <CardCourse
+                  key={i}
+                  title={x.title}
+                  description={x.dis}
+                  link={x.link}
+                  image={x.image}
+                />
+              ))
+            : ""
+          : ""}
+        {current == "tab2"
+          ? allcourses
+            ? allcourses.map((x, i) =>
+                x.certification ? (
+                  <CardCourse
+                    key={i}
+                    title={x.title}
+                    description={x.dis}
+                    link={x.link}
+                    image={x.image}
+                  />
+                ) : (
+                  ""
+                )
+              )
+            : ""
+          : ""}
+        {current == "tab3"
+          ? allcourses
+            ? allcourses.map((x, i) =>
+                x.certification ? (
+                  ""
+                ) : (
+                  <CardCourse
+                    key={i}
+                    title={x.title}
+                    description={x.dis}
+                    link={x.link}
+                    image={x.image}
+                  />
+                )
+              )
+            : ""
+          : ""}
       </div>
       <CardPagination />
       <br />
