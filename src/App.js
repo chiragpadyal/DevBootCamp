@@ -6,9 +6,6 @@ import {
   Redirect,
 } from "react-router-dom";
 
-// import Home from "./Pages/Home";
-// import { Login } from "./Pages/Login";
-
 import Login from "./features/Users/Login";
 import Signup from "./features/Users/Signup";
 import Dashboard from "./features/Users/Dasshboard";
@@ -16,12 +13,12 @@ import { PrivateRoute } from "./helpers/PrivateRoute";
 
 import { Dashboard as DashMain } from "./Pages/Dashboard";
 import ScrollToTop from "./Components/ScrollToTop";
-// import { CoursePanel } from "./Pages/CoursePanel";
 import { AddCourse } from "./Pages/AddCourse";
-import Article from "./Pages/loadMdDynamic";
 import Courseinfo from "./Pages/Course";
-// import { NoMatch } from "./Pages/NoMatch";
-
+import { QuizPanel } from "./Components/QuizPanel";
+import { Categories } from "./Pages/Categories";
+// import StripePaymentForm from "./Pages/StripePayment";
+import Stripe from "./Stripe/Stripe";
 export default class App extends Component {
   render() {
     return (
@@ -32,21 +29,20 @@ export default class App extends Component {
             {/* <Route path="/DevBootCamp/" exact element={<Home />} /> */}
 
             {/* <Route path="/DevBootCamp/:dynamic" component={NoMatch} /> */}
+            <Route exact component={QuizPanel} path="/test" />
+
             <Route exact component={Login} path="/DevBootCamp/login" />
             <Route exact component={Signup} path="/DevBootCamp/signup" />
             <Route exact component={Dashboard} path="/DevBootCamp" />
-            {/* <PrivateRoute
-              path="/DevBootCamp/course/:dynamic/content"
-              component={CoursePanel}
-            /> */}
+            <PrivateRoute path="/DevBootCamp/category" component={Categories} />
             <PrivateRoute
               exact
               path="/DevBootCamp/course/:dynamic"
               component={Courseinfo}
             />
-            <PrivateRoute path="/DevBootCamp/category" component={DashMain} />
+            <PrivateRoute path="/DevBootCamp/dashborad" component={DashMain} />
             <Route path="/DevBootCamp/add" component={AddCourse} />
-            <Route path="/DevBootCamp/test" component={Article} />
+            <Route path="/DevBootCamp/test" component={Stripe} />
             <Redirect from="/" to="/DevBootCamp/" />
           </Switch>
         </div>

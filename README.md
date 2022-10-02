@@ -6,7 +6,7 @@ All Developer related courses at one place.
 
 ## Features
 
-- Light/dark mode toggle
+- Light/dark mode tongle
 - Course Progress Tracker
 - Review for each course
 - Comment Section for Course Content

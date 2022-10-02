@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 export const CardCourse = (props) => {
   return (
     <Link
-      to={`course/${props.link}`}
+      to={`/DevBootCamp/course/${props.link}`}
       className="block transform transition duration-500 hover:scale-105 border-solid hover:border-2 hover:border-purple-600 overflow-hidden rounded-2xl"
     >
       <img
         className="object-cover w-full h-56"
-        src={`${process.env.REACT_APP_BACKEND_API}static/images/${props.image}`}
+        src={`${process.env.REACT_APP_STATIC_API}static/images/${props.image}`}
         alt=""
       />
 

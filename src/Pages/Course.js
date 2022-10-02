@@ -35,8 +35,8 @@ const Courseinfo = () => {
     }
   }, [location]);
 
-  const enrolluserFunc = (e) => {
-    e.preventDefault();
+  const enrolluserFunc = () => {
+    // e.preventDefault();
     console.log("abc");
     if (pathName) {
       const token = localStorage.getItem("token");
@@ -82,7 +82,7 @@ const Courseinfo = () => {
                 <Navbar />
                 <CourseInfo
                   enrollstatus={isEnrolled}
-                  enroll={(e) => enrolluserFunc(e)}
+                  enroll={enrolluserFunc}
                   data={courseData}
                   tongle={(e) => setShowcontentFunc(e)}
                 />

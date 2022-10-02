@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Footer from "../Components/Footer";
-import { FcCheckmark } from "react-icons/fc";
+import { FcCheckmark, FcLock } from "react-icons/fc";
 
 import "../Components/styleCoursePanel.css";
 
@@ -9,13 +9,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateCompletion } from "../features/Data/fetchData";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import remarkToc from "remark-toc";
-import rehypeHighlight from "rehype-highlight";
+// import remarkToc from "remark-toc";
+// import remarkHighlightjs from 'remark-highlight.js';
 import rehypeRaw from "rehype-raw";
-import rehypeSanitize from "rehype-sanitize";
+// import rehypeSanitize from "rehype-sanitize";
 import { userSelector } from "../features/Data/fetchData";
 import { useLocation } from "react-router-dom";
-
+import { QuizPanel } from "../Components/QuizPanel";
 export const CoursePanel = (props) => {
   const { courseData } = useSelector(userSelector);
   const dispatch = useDispatch();
@@ -24,26 +24,69 @@ export const CoursePanel = (props) => {
   const [markdown, setMarkdown] = useState("");
   const [show, setShow] = useState(false);
   const [btnClick, setbtnClick] = useState(false);
+  //quiz
+  const [quizJsonLink, setQuizJsonLink] = useState(null);
+  const [quizJson, setQuizJson] = useState("");
+  const [quizMode, setQuizMode] = useState(false);
+
+  // setQuizAccess
+  const [quizAccess, setQuizAccess] = useState(false);
+  const [quizIndex, setQuizIndex] = useState(null);
   // const [completion, setCompletion] = useState(false);
   const setbtnFunc = () => setbtnClick(!btnClick);
+  const setQuizFunc = (e) => {
+    // setQuizMode(true);
+    setQuizJsonLink(e);
+    // updateCompletionFunc(e);
+    setQuizIndex(e);
+  };
   const setPageFunc = (e) => {
+    setQuizMode(false);
+    setQuizJson("");
+    setQuizJsonLink(null);
+    // setQuizIndex(null);
     setMdPage(e);
     updateCompletionFunc(e);
   };
   // var Markdown = require("../Content/1.md");
 
   useEffect(() => {
+    if (pathName) checkAccessToFinalQuiz();
+  }, [quizJsonLink, markdownPage]);
+  useEffect(() => {
     if (courseData) {
       // console.log(courseData.Index);
       setData(courseData.Index);
-      const firstElement =
-        courseData.Index[Object.keys(courseData.Index)[0]][0].key;
+      const excludeFinal =
+        Object.keys(courseData.Index)[0] == "Final"
+          ? Object.keys(courseData.Index)[1]
+          : Object.keys(courseData.Index)[0];
+      const firstElement = courseData.Index[excludeFinal][0].key;
       setMdPage(firstElement);
     }
   }, [courseData]);
 
   const location = useLocation();
   const [pathName, setPathName] = useState(null);
+
+  async function checkAccessToFinalQuiz() {
+    const response = await fetch(
+      `${process.env.REACT_APP_BACKEND_API}course/check${pathName}`,
+      {
+        headers: {
+          "x-access-tokens": localStorage.getItem("token"),
+        },
+      }
+    );
+
+    // let data = await response.json();
+
+    if (response.status === 200) {
+      setQuizAccess(true);
+    } else {
+      setQuizAccess(false);
+    }
+  }
 
   useEffect(() => {
     if (location) {
@@ -55,20 +98,51 @@ export const CoursePanel = (props) => {
     }
   }, [location]);
 
+  async function getMarkdown() {
+    let response = await fetch(
+      `${process.env.REACT_APP_BACKEND_API}md/${markdownPage}`,
+      {
+        headers: {
+          "Cache-Control": "no-cache",
+          "x-access-tokens": localStorage.getItem("token"),
+        },
+      }
+    );
+
+    let data = await response.text();
+
+    if (response.status === 200) {
+      setMarkdown(data);
+      console.log(data);
+    }
+
+    // .then((response) => response.text())
+    // .then((text) => {
+    //   setMarkdown(text);
+    //   console.log(text);
+    // });
+  }
+
   useEffect(() => {
     // console.log(markdownPage);
-    if (markdownPage)
-      fetch(`${process.env.REACT_APP_BACKEND_API}md/${markdownPage}`, {
+    if (markdownPage) getMarkdown();
+  }, [markdownPage]);
+
+  useEffect(() => {
+    // console.log(markdownPage);
+    if (quizJsonLink)
+      fetch(`${process.env.REACT_APP_BACKEND_API}json/${quizJsonLink}`, {
         headers: {
           "x-access-tokens": localStorage.getItem("token"),
         },
       })
         .then((response) => response.text())
         .then((text) => {
-          setMarkdown(text);
+          setQuizJson(text);
+          setQuizMode(true);
           // console.log(text);
         });
-  }, [markdownPage]);
+  }, [quizJsonLink]);
 
   useEffect(() => {
     if (markdown) setShow(true);
@@ -94,20 +168,28 @@ export const CoursePanel = (props) => {
 
   const updateCompletionFunc = (indexkey) => {
     let token = localStorage.getItem("token");
-    if (pathName)
+    if (pathName) {
       dispatch(
         updateCompletion({ token: token, key: indexkey, courselink: pathName })
       );
+    }
     // setCompletion(true);
   };
 
+  const handleQuizSubmit = () => {
+    updateCompletionFunc(quizIndex);
+  };
   // eslint-disable-next-line no-unused-vars
   const loadIndex = () => {
     let list = [];
     // let keys = Object.keys(data);
-    if (data)
-      for (let k in data) {
+    if (data) {
+      for (const k in data) {
         {
+          // skip final quiz json key
+          if (k === "Final") {
+            continue;
+          }
           list.push(
             <li key={k} className="nav-item mb-2">
               <details className="group" onClick={setbtnFunc}>
@@ -136,19 +218,35 @@ export const CoursePanel = (props) => {
                   {data[k].map((item, index) => {
                     return (
                       <li key={index} className="nav-item">
-                        <a
-                          className={
-                            data[k].locked
-                              ? "nav-link pointer-events-none flex  justify-between  text-purple-400 hover:text-purple-600"
-                              : "nav-link  flex  justify-between  text-purple-400 hover:text-purple-600"
-                          }
-                          onClick={() => setPageFunc(item.key)}
-                        >
-                          <span className="fa fa-chart-bar ml-2">
-                            {item.title}
-                          </span>
-                          {item.completion ? <FcCheckmark /> : ""}
-                        </a>
+                        {item.title == "Quiz" ? (
+                          <a
+                            className={
+                              data[k].locked
+                                ? "nav-link pointer-events-none flex  justify-between  text-purple-400 hover:text-purple-600"
+                                : "nav-link  flex  justify-between  text-purple-400 hover:text-purple-600"
+                            }
+                            onClick={() => setQuizFunc(item.key)}
+                          >
+                            <span className="fa fa-chart-bar ml-2">
+                              {item.title}
+                            </span>
+                            {item.completion ? <FcCheckmark /> : ""}
+                          </a>
+                        ) : (
+                          <a
+                            className={
+                              data[k].locked
+                                ? "nav-link pointer-events-none flex  justify-between  text-purple-400 hover:text-purple-600"
+                                : "nav-link  flex  justify-between  text-purple-400 hover:text-purple-600"
+                            }
+                            onClick={() => setPageFunc(item.key)}
+                          >
+                            <span className="fa fa-chart-bar ml-2">
+                              {item.title}
+                            </span>
+                            {item.completion ? <FcCheckmark /> : ""}
+                          </a>
+                        )}
                       </li>
                     );
                   })}
@@ -158,6 +256,7 @@ export const CoursePanel = (props) => {
           );
         }
       }
+    }
     return list;
   };
   return (
@@ -171,6 +270,26 @@ export const CoursePanel = (props) => {
                   {/* <!-- navigation --> */}
                   <ul className="nav flex flex-col overflow-hidden">
                     {loadIndex()}
+                    <li key={"Final"} className="nav-item mb-2">
+                      <a
+                        className={
+                          data["Final"][0].completion
+                            ? "nav-link flex  justify-between  text-purple-400 hover:text-purple-600"
+                            : "nav-link  flex  justify-between  text-purple-600 hover:text-purple-600"
+                        }
+                        onClick={
+                          quizAccess
+                            ? () => setQuizFunc(data["Final"][0].key)
+                            : () => console.log("false")
+                        }
+                      >
+                        <span className="fa fa-chart-bar ml-2">
+                          {data["Final"][0].title}
+                        </span>
+                        {data["Final"][0].completion ? <FcCheckmark /> : ""}
+                        {quizAccess ? "" : <FcLock />}
+                      </a>
+                    </li>
                   </ul>
                 </div>
               </aside>
@@ -179,29 +298,25 @@ export const CoursePanel = (props) => {
                 className=" md:pl-9  w-full sm:w-2/3 md:w-3/4 pt-1 px-2"
               >
                 <div className="float-right">
-                  {/* {item.completion  ? (
-                    <button className="inline-flex items-center p-2 text-white bg-indigo-600 border border-indigo-600 rounded hover:bg-transparent hover:text-indigo-600 active:text-indigo-500 focus:outline-none focus:ring">
-                      Mark As Complete
-                    </button>
-                  ) : (
-                    ""
-                  )} */}
                   <button
                     onClick={(e) => props.tongle(e)}
                     className="inline-flex items-center p-2 text-white bg-indigo-600 border border-indigo-600 rounded hover:bg-transparent hover:text-indigo-600 active:text-indigo-500 focus:outline-none focus:ring"
                   >
                     Back
                   </button>
-
-                  {/* <button onClick={(e) => props.tongle(e)}>Back</button> */}
                 </div>
-                <ReactMarkdown
-                  className="prose  max-w-none"
-                  remarkPlugins={[remarkGfm, remarkToc]}
-                  rehypePlugins={[rehypeHighlight, rehypeRaw, rehypeSanitize]}
-                >
-                  {markdown}
-                </ReactMarkdown>
+
+                {quizMode ? (
+                  <QuizPanel data={quizJson} result={handleQuizSubmit} />
+                ) : (
+                  <ReactMarkdown
+                    className="prose  max-w-none"
+                    remarkPlugins={[remarkGfm]}
+                    rehypePlugins={[rehypeRaw]}
+                  >
+                    {markdown}
+                  </ReactMarkdown>
+                )}
               </main>
             </div>
           </div>

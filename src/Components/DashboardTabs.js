@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { CardCourse } from "./CardCourse";
-import { CardPagination } from "./CardPagination";
+// import { CardPagination } from "./CardPagination";
 
 export const DashboardTabs = () => {
   const [current, setCurrent] = useState("tab1");
@@ -137,7 +137,6 @@ export const DashboardTabs = () => {
             : ""
           : ""}
       </div>
-      <CardPagination />
       <br />
       <br />
     </>

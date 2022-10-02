@@ -2,28 +2,76 @@ import React, { useState } from "react";
 import "./stylecourseinfo.css";
 // import { DataCourses } from "./DataCourses";
 // import { useHistory } from "react-router-dom";
-
+import Modal from "@material-ui/core/Modal";
+import Box from "@material-ui/core/Box";
+// import Typography from "@material-ui/core/Typography";
+import Stripe from "../Stripe/Stripe";
+// import Button from "@material-ui/core/Button";
 export const CourseInfo = (props) => {
   // const history = useHistory();
 
   const [data] = useState(props.data);
-  // let data;
+  const [open, setOpen] = useState(false);
+  // const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false); // let data;
   // data = props.data;
   // console.log(data.tags);
   // data = DataCourses[0];
 
-  const publicURL = `${process.env.REACT_APP_BACKEND_API}static/`;
+  const publicURL = `${process.env.REACT_APP_STATIC_API}static/`;
   const [mainPic, setPic] = useState(publicURL + "/images/" + data.image[0]);
   const setPicture = (e) => setPic(e);
 
+  async function handleDownload() {
+    let response = await fetch(
+      `${process.env.REACT_APP_BACKEND_API}course/${props.data.link}/certificate`,
+      {
+        headers: {
+          "Cache-Control": "no-cache",
+          "x-access-tokens": localStorage.getItem("token"),
+        },
+      }
+    );
+    const data = await response.blob();
+
+    if (response.status === 200) {
+      const fileURL = window.URL.createObjectURL(data);
+      // Setting various property values
+      let alink = document.createElement("a");
+      alink.href = fileURL;
+      alink.download = "SamplePDF.pdf";
+      alink.click();
+    }
+  }
+
   const enroll = (event) => {
     event.preventDefault();
-    props.enroll(event);
+    // props.enroll(event);
+    setOpen(true);
+
+    // props.enroll(event);
+  };
+
+  const changeEnroll = () => {
+    props.enroll();
+    setOpen(false);
   };
 
   const tongleToContent = (event) => {
     event.preventDefault();
     props.tongle(event);
+  };
+
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
   };
 
   const stars = () => {
@@ -47,6 +95,16 @@ export const CourseInfo = (props) => {
   };
   return (
     <>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Stripe amount={"500"} feedback={changeEnroll} />
+        </Box>
+      </Modal>
       <section>
         <div className="relative max-w-screen-xl px-4 py-8 mx-auto">
           <div>
@@ -187,6 +245,18 @@ export const CourseInfo = (props) => {
                 >
                   Wishlist
                 </button>
+
+                {props.data.certification ? (
+                  <button
+                    type="button"
+                    className="w-full px-6 py-3 text-sm font-bold tracking-wide uppercase bg-gray-100 border border-gray-300 rounded"
+                    onClick={handleDownload}
+                  >
+                    Download Certificate
+                  </button>
+                ) : (
+                  ""
+                )}
               </form>
             </div>
 

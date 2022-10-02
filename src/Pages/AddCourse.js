@@ -84,15 +84,19 @@ export class AddCourse extends React.Component {
         "Week 1": [
           { title: "Prerequisite", key: 0 },
           { title: "Introduction", key: 1 },
+          { title: "Quiz", key: "quiz1" },
         ],
         "Week 2": [
           { title: "Arrays and Looping", key: 2 },
           { title: "Varible Scope", key: 3 },
+          { title: "Quiz", key: "quiz2" },
         ],
         "Week 3": [
           { title: "Es6 fuction", key: 4 },
           { title: "Async methods", key: 5 },
+          { title: "Quiz", key: "quiz3" },
         ],
+        Final: [{ title: "Final", key: "finalquiz" }],
       },
       rate: this.state.rate,
       tags: this.state.tags,
