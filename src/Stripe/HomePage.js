@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 // MUI Components
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
@@ -52,9 +52,20 @@ function HomePage(props) {
     //   method: "POST",
     //   body: JSON.stringify({ email: email }),
     // });
-    const res = await axios.post("http://localhost:5000/pay", {
-      email: email,
-      amount: props.amount,
+    // const res = await axios.post("http://localhost:5000/pay", {
+    //   email: email,
+    //   amount: props.amount,
+    // });
+
+    const res = await fetch(`${process.env.REACT_APP_BACKEND_API}pay`, {
+      method: "POST",
+      headers: {
+        "x-access-tokens": localStorage.getItem("token"),
+      },
+      body: JSON.stringify({
+        email: email,
+        amount: props.amount,
+      }),
     });
 
     const clientSecret = res.data["client_secret"];

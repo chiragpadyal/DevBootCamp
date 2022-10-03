@@ -40,19 +40,41 @@ const Navbar = () => {
               </h2>
 
               <ul className="flex items-center gap-6 text-sm">
-                {navbarContent.map((item, index) => (
-                  <li key={index}>
-                    <NavLink
-                      className="text-gray-500 transition hover:text-gray-500/75"
-                      to={item.to}
-                    >
-                      <span style={{ display: "flex", alignItems: "center" }}>
-                        <span className="pr-1">{item.icon}</span>
-                        {item.title}
-                      </span>
-                    </NavLink>
-                  </li>
-                ))}
+                {username
+                  ? navbarContent.map((item, index) => (
+                      <li key={index}>
+                        <NavLink
+                          className="text-gray-500 transition hover:text-gray-500/75"
+                          to={item.to}
+                        >
+                          <span
+                            style={{ display: "flex", alignItems: "center" }}
+                          >
+                            <span className="pr-1">{item.icon}</span>
+                            {item.title}
+                          </span>
+                        </NavLink>
+                      </li>
+                    ))
+                  : navbarContent.map((item, index) =>
+                      item.protected ? (
+                        ""
+                      ) : (
+                        <li key={index}>
+                          <NavLink
+                            className="text-gray-500 transition hover:text-gray-500/75"
+                            to={item.to}
+                          >
+                            <span
+                              style={{ display: "flex", alignItems: "center" }}
+                            >
+                              <span className="pr-1">{item.icon}</span>
+                              {item.title}
+                            </span>
+                          </NavLink>
+                        </li>
+                      )
+                    )}
               </ul>
             </nav>
 

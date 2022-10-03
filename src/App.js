@@ -15,10 +15,11 @@ import { Dashboard as DashMain } from "./Pages/Dashboard";
 import ScrollToTop from "./Components/ScrollToTop";
 import { AddCourse } from "./Pages/AddCourse";
 import Courseinfo from "./Pages/Course";
-import { QuizPanel } from "./Components/QuizPanel";
+// import { QuizPanel } from "./Components/QuizPanel";
 import { Categories } from "./Pages/Categories";
 // import StripePaymentForm from "./Pages/StripePayment";
 import Stripe from "./Stripe/Stripe";
+import { ConfirmMail } from "./Pages/ConfirmMail";
 export default class App extends Component {
   render() {
     return (
@@ -29,20 +30,24 @@ export default class App extends Component {
             {/* <Route path="/DevBootCamp/" exact element={<Home />} /> */}
 
             {/* <Route path="/DevBootCamp/:dynamic" component={NoMatch} /> */}
-            <Route exact component={QuizPanel} path="/test" />
+            {/* <Route exact component=QuizPanel path="/test" //> */}
 
             <Route exact component={Login} path="/DevBootCamp/login" />
             <Route exact component={Signup} path="/DevBootCamp/signup" />
             <Route exact component={Dashboard} path="/DevBootCamp" />
-            <PrivateRoute path="/DevBootCamp/category" component={Categories} />
-            <PrivateRoute
+            <Route path="/DevBootCamp/category" component={Categories} />
+            <Route
               exact
               path="/DevBootCamp/course/:dynamic"
               component={Courseinfo}
             />
-            <PrivateRoute path="/DevBootCamp/dashborad" component={DashMain} />
-            <Route path="/DevBootCamp/add" component={AddCourse} />
-            <Route path="/DevBootCamp/test" component={Stripe} />
+            <PrivateRoute path="/DevBootCamp/dashboard" component={DashMain} />
+            <PrivateRoute path="/DevBootCamp/add" component={AddCourse} />
+            <PrivateRoute path="/DevBootCamp/test" component={Stripe} />
+            <PrivateRoute
+              path="/DevBootCamp/confirm/:mailtoken"
+              component={ConfirmMail}
+            />
             <Redirect from="/" to="/DevBootCamp/" />
           </Switch>
         </div>
