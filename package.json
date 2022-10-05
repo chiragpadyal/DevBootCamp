@@ -4,6 +4,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
+    "@fortawesome/fontawesome-free": "^6.2.0",
     "@headlessui/react": "^1.7.3",
     "@material-ui/core": "^4.12.4",
     "@mui/material": "^5.10.7",
@@ -16,6 +17,7 @@
     "@testing-library/user-event": "^13.2.1",
     "axios": "^0.27.2",
     "base-64": "^1.0.0",
+    "chart.js": "^2.9.4",
     "list-react-files": "^0.2.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
@@ -73,7 +75,7 @@
     ]
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.8",
+    "autoprefixer": "^10.2.5",
     "eslint": "^8.21.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
@@ -100,5 +102,18 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
-  }
+  },
+  "description": "[@Visit the webiste](https://freakstar03.github.io/DevBootCamp/)",
+  "main": "postcss.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FreakStar03/DevBootCamp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FreakStar03/DevBootCamp/issues"
+  },
+  "homepage": "https://FreakStar03.github.com/DevBootCamp"
 }

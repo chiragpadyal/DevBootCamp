@@ -29,6 +29,30 @@ export const QuizPanel = (props) => {
     setSelectedOptions([...selectedOptions]);
   };
 
+  async function checkAccessToFinalQuiz(percentage, pathName) {
+    const response = await fetch(
+      `${process.env.REACT_APP_BACKEND_API}course/check${pathName}`,
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "x-access-tokens": localStorage.getItem("token"),
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          marks: percentage,
+        }),
+      }
+    );
+    let data = await response.json();
+
+    if (response.status === 200) {
+      console.log(data.message);
+    } else {
+      console.log(data.message);
+    }
+  }
+
   const handleSubmitButton = () => {
     let newScore = 0;
     for (let i = 0; i < questions.length; i++) {
@@ -42,7 +66,12 @@ export const QuizPanel = (props) => {
     setScore(newScore);
     setShowScore(true);
     let percentage = (newScore / questions.length) * 100;
-    if (percentage > 75) props.result();
+    if (percentage > 50) {
+      if (props.path) {
+        checkAccessToFinalQuiz(percentage, props.path);
+        props.result();
+      }
+    }
   };
 
   return (

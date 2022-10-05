@@ -15,6 +15,8 @@ export class AddCourse extends React.Component {
     link: "",
     dis: "",
     rate: 0,
+    Price: 0,
+    Category: 0,
     notSubmitted: true,
   };
 
@@ -101,6 +103,8 @@ export class AddCourse extends React.Component {
       rate: this.state.rate,
       tags: this.state.tags,
       views: 0,
+      price: this.state.Price,
+      category: this.state.Category,
     };
 
     const response = await fetch(`${process.env.REACT_APP_BACKEND_API}course`, {
@@ -146,6 +150,8 @@ export class AddCourse extends React.Component {
     if (data == "tags") this.setState({ tags: e.target.value });
     if (data == "link") this.setState({ link: e.target.value });
     if (data == "rate") this.setState({ rate: e.target.value });
+    if (data == "Price") this.setState({ Price: e.target.value });
+    if (data == "Category") this.setState({ Category: e.target.value });
   };
 
   add = (e) => {
@@ -184,6 +190,40 @@ export class AddCourse extends React.Component {
                 placeholder="Text input"
                 value={this.state.title}
                 onChange={(e) => this.textHandler(e, "title")}
+              />
+            </div>
+
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="name"
+              >
+                Price
+              </label>
+              <input
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="Price"
+                type="text"
+                placeholder="Text input"
+                value={this.state.Price}
+                onChange={(e) => this.textHandler(e, "Price")}
+              />
+            </div>
+
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="name"
+              >
+                Category
+              </label>
+              <input
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="Category"
+                type="text"
+                placeholder="Text input"
+                value={this.state.Category}
+                onChange={(e) => this.textHandler(e, "Category")}
               />
             </div>
 

@@ -20,6 +20,8 @@ import { Categories } from "./Pages/Categories";
 // import StripePaymentForm from "./Pages/StripePayment";
 import Stripe from "./Stripe/Stripe";
 import { ConfirmMail } from "./Pages/ConfirmMail";
+// import "./assets/styles/tailwind.css";
+import Admin from "./layouts/Admin.js";
 export default class App extends Component {
   render() {
     return (
@@ -36,6 +38,7 @@ export default class App extends Component {
             <Route exact component={Signup} path="/DevBootCamp/signup" />
             <Route exact component={Dashboard} path="/DevBootCamp" />
             <Route path="/DevBootCamp/category" component={Categories} />
+            <Route path="/DevBootCamp/admin" component={Admin} />
             <Route
               exact
               path="/DevBootCamp/course/:dynamic"

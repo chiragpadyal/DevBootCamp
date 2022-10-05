@@ -32,6 +32,9 @@ export const CoursePanel = (props) => {
   // setQuizAccess
   const [quizAccess, setQuizAccess] = useState(false);
   const [quizIndex, setQuizIndex] = useState(null);
+
+  // const [marks, setMarks] = useState(0);
+
   // const [completion, setCompletion] = useState(false);
   const setbtnFunc = () => setbtnClick(!btnClick);
   const setQuizFunc = (e) => {
@@ -73,9 +76,14 @@ export const CoursePanel = (props) => {
     const response = await fetch(
       `${process.env.REACT_APP_BACKEND_API}course/check${pathName}`,
       {
+        method: "POST",
         headers: {
+          Accept: "application/json",
+          "Cache-Control": "no-cache",
+          "Content-Type": "application/json",
           "x-access-tokens": localStorage.getItem("token"),
         },
+        body: JSON.stringify({}),
       }
     );
 
@@ -177,6 +185,7 @@ export const CoursePanel = (props) => {
   };
 
   const handleQuizSubmit = () => {
+    // setMarks(e);
     updateCompletionFunc(quizIndex);
   };
   // eslint-disable-next-line no-unused-vars
@@ -307,7 +316,11 @@ export const CoursePanel = (props) => {
                 </div>
 
                 {quizMode ? (
-                  <QuizPanel data={quizJson} result={handleQuizSubmit} />
+                  <QuizPanel
+                    data={quizJson}
+                    result={handleQuizSubmit}
+                    path={pathName}
+                  />
                 ) : (
                   <ReactMarkdown
                     className="prose  max-w-none"
