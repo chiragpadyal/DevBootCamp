@@ -259,27 +259,6 @@ export const CourseInfo = (props) => {
                 )}
               </form>
             </div>
-
-            <div className="lg:col-span-3">
-              <div className="prose max-w-none">
-                <p>{data.dis}</p>
-
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi
-                  eveniet ipsam mollitia nesciunt illo! Suscipit, corrupti!
-                </p>
-
-                <h3>Features</h3>
-
-                <ul>
-                  <li>Flexible deadlines</li>
-                  <li>100% online</li>
-                  <li>Intermediate Level</li>
-                  <li>Approx. 54 hours to complete</li>
-                  <li>English language</li>
-                </ul>
-              </div>
-            </div>
           </div>
         </div>
       </section>
