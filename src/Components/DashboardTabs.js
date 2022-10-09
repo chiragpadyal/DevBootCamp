@@ -93,6 +93,9 @@ export const DashboardTabs = () => {
           ? allcourses
             ? allcourses.map((x, i) => (
                 <CardCourse
+                  price={x.price}
+                  rating={x.rate}
+                  category={x.category}
                   key={i}
                   title={x.title}
                   description={x.dis}
@@ -107,6 +110,9 @@ export const DashboardTabs = () => {
             ? allcourses.map((x, i) =>
                 x.certification ? (
                   <CardCourse
+                    price={x.price}
+                    rating={x.rate}
+                    category={x.category}
                     key={i}
                     title={x.title}
                     description={x.dis}
@@ -126,6 +132,9 @@ export const DashboardTabs = () => {
                   ""
                 ) : (
                   <CardCourse
+                    price={x.price}
+                    rating={x.rate}
+                    category={x.category}
                     key={i}
                     title={x.title}
                     description={x.dis}

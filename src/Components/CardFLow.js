@@ -41,6 +41,9 @@ export const CardFLow = () => {
           <div className="grid m-5 grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-y-10 gap-x-5 items-start">
             {allcourses.map((x, i) => (
               <CardCourse
+                price={x.price}
+                rating={x.rate}
+                category={x.category}
                 key={i}
                 title={x.title}
                 description={x.dis}

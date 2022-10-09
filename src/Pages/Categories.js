@@ -9,7 +9,7 @@ export const Categories = () => {
     price: "any",
     rating: "any",
     level: "any",
-    category: "all",
+    category: "any",
     tags: [],
   });
 
@@ -158,7 +158,7 @@ export const Categories = () => {
             {/* <!-- filters Button (md and plus Screen) --> */}
             <button
               onClick={tongleFilter}
-              className="cursor-pointer dark:bg-white dark:text-gray-800 text-white dark:hover:bg-gray-100 sm:flex hidden hover:bg-gray-700 focus:ring focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 py-4 px-6 bg-gray-800 flex text-base leading-4 font-normal text-white justify-center items-center"
+              className="cursor-pointer text-white sm:flex hidden hover:bg-gray-700 focus:ring focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 py-4 px-6 bg-gray-800 flex text-base leading-4 font-normal text-white justify-center items-center"
             >
               <svg
                 className="mr-2"
@@ -406,7 +406,7 @@ export const Categories = () => {
               <div className="mt-8 px-10 h-10">
                 {/* // dropdown */}
                 <DropDown
-                  data={["all", "dsa", "coa", "cnnd"]}
+                  data={["any", "dsa", "coa", "cnnd"]}
                   setData={(e) => handleChange({ from: "category", action: e })}
                 />
               </div>
@@ -484,7 +484,7 @@ export const Categories = () => {
                       value="100"
                     />
                     <p className="text-base leading-4 dark:text-gray-300 text-gray-600 font-normal">
-                      below 100$
+                      above 100$
                     </p>
                   </div>
                   <div className="flex space-x-2 justify-center items-center">
@@ -496,10 +496,10 @@ export const Categories = () => {
                       type="radio"
                       id="price"
                       name="price"
-                      value="100-300"
+                      value="500"
                     />
                     <p className="text-base leading-4 dark:text-gray-300 text-gray-600 font-normal">
-                      between 100$ - 300$
+                      above 500$
                     </p>
                   </div>
                   <div className="flex space-x-2 md:justify-center md:items-center items-center justify-end">
@@ -511,10 +511,10 @@ export const Categories = () => {
                       type="radio"
                       id="price"
                       name="price"
-                      value="300"
+                      value="1000"
                     />
                     <p className="text-base leading-4 dark:text-gray-300 text-gray-600 font-normal">
-                      above 300$
+                      above 1000$
                     </p>
                   </div>
                 </div>
@@ -971,15 +971,26 @@ export const Categories = () => {
         </div>
         <div className="grid m-5 grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-y-10 gap-x-5 items-start">
           {allcourses
-            ? allcourses.map((x, i) => (
-                <CardCourse
-                  key={i}
-                  title={x.title}
-                  description={x.dis}
-                  link={x.link}
-                  image={x.image}
-                />
-              ))
+            ? allcourses.map((x, i) =>
+                (filters.category == "any" || x.category == filters.category) &&
+                x.price >=
+                  (filters.price == "any" ? true : parseInt(filters.price)) &&
+                (filters.rating == "any" ||
+                  x.rate == parseInt(filters.rating)) ? (
+                  <CardCourse
+                    price={x.price}
+                    rating={x.rate}
+                    category={x.category}
+                    key={i}
+                    title={x.title}
+                    description={x.dis}
+                    link={x.link}
+                    image={x.image}
+                  />
+                ) : (
+                  ""
+                )
+              )
             : ""}
         </div>
       </div>

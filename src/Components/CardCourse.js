@@ -14,9 +14,13 @@ export const CardCourse = (props) => {
       />
 
       <div className="p-4 bg-gray-900">
-        <p className="text-xs text-gray-500">devbootcamp</p>
+        <p className="text-xs text-gray-500">
+          {`${props.category} `} {`( ${props.price} $ )`}
+        </p>
 
-        <h5 className="text-sm text-white">{props.title}</h5>
+        <h5 className="text-sm text-white">
+          {props.title} {`( ${props.rating} stars )`}
+        </h5>
 
         <p className="mt-1 text-xs text-gray-500">{props.description}</p>
         <button
