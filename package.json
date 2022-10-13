@@ -86,7 +86,6 @@
     "postcss": "^8.4.14",
     "prettier": "2.7.1",
     "pretty-quick": "^3.1.3",
-    "react-router-dom": "^6.3.0",
     "tailwindcss": "^3.1.7"
   },
   "lint-staged": {
@@ -103,17 +102,8 @@
       "pre-commit": "lint-staged"
     }
   },
-  "description": "[@Visit the webiste](https://freakstar03.github.io/DevBootCamp/)",
   "main": "postcss.config.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/FreakStar03/DevBootCamp.git"
-  },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/FreakStar03/DevBootCamp/issues"
-  },
-  "homepage": "https://FreakStar03.github.com/DevBootCamp"
+  "license": "ISC"
 }

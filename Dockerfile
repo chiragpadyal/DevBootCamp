@@ -5,6 +5,7 @@ WORKDIR /home/app/react
 ENV PATH /home/app/react/node_modules/.bin:$PATH
 COPY package.json /home/app/react/package.json
 
+
 RUN npm cache clean --force
 RUN npm config rm proxy
 RUN npm config rm https-proxy
@@ -13,7 +14,7 @@ RUN npm config delete proxy
 RUN npm config delete http-proxy
 RUN npm config delete https-proxy
 
-RUN npm install --legacy-peer-deps
+RUN npm cache clean --force && npm set timeout=100000 && npm install  --legacy-peer-deps
 RUN npm install react-scripts -g --legacy-peer-deps
 COPY . /home/app/react
 

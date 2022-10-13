@@ -46,7 +46,7 @@ export default class AddIndex extends React.Component {
 
     let formData1 = new FormData();
     formData1.append("file", this.state.json);
-    fetch(`http://127.0.0.1:5000/api/upload/json`, {
+    fetch(`${process.env.REACT_APP_BACKEND_API}upload/json`, {
       method: "POST",
       body: formData1,
     }).then((response) => {
@@ -60,7 +60,7 @@ export default class AddIndex extends React.Component {
 
     let formData2 = new FormData();
     formData2.append("file", this.state.finalQuiz);
-    fetch(`http://127.0.0.1:5000/api/upload/json`, {
+    fetch(`${process.env.REACT_APP_BACKEND_API}upload/json`, {
       method: "POST",
       body: formData1,
     }).then((response) => {
@@ -74,7 +74,7 @@ export default class AddIndex extends React.Component {
 
     let formData = new FormData();
     formData.append("file", this.state.key);
-    fetch(`http://127.0.0.1:5000/api/upload/markdown`, {
+    fetch(`${process.env.REACT_APP_BACKEND_API}upload/markdown`, {
       method: "POST",
       body: formData,
     }).then((response) => {
